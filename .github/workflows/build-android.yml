@@ -33,11 +33,12 @@ jobs:
       - name: Make Gradlew executable
         run: chmod +x dependencies/RSDKv5/android/gradlew
 
-      - name: Build APK with Gradle (Plus enabled)
+      - name: Build APK with Gradle
         working-directory: dependencies/RSDKv5/android
         run: |
           ./gradlew assembleRelease \
             -PRETRO_DISABLE_PLUS=off \
+            -PRETRO_REVISION=2 \
             -PANDROID_NDK_VERSION=26.3.11579264
         env:
           ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk/26.3.11579264
@@ -45,7 +46,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SonicMania-Plus-APK
+          name: SonicMania-Plus-REV2-APK
           path: "dependencies/RSDKv5/android/app/build/outputs/apk/**/*.apk"
           if-no-files-found: warn
           retention-days: 90
